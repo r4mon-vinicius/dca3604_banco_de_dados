@@ -169,7 +169,7 @@ if conn:
             ax.set_xlabel('Número de Turnos')
             ax.set_ylabel('Frequência (Nº de Partidas)')
             
-            col1, col2, col3 = st.columns([0.05, 0.9, 0.05])
+            col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
 
             with col2:
                 st.pyplot(fig) # Não precisa de 'use_container_width'
@@ -183,7 +183,7 @@ if conn:
         st.markdown(f"```sql\n{query}\n```")
         
         if not df_players.empty:
-            st.bar_chart(df_players.set_index('player_id'))
+            st.bar_chart(df_players, x='player_id', y='wins')
         else:
             st.warning("Não há dados na tabela 'players' para exibir.")
 
