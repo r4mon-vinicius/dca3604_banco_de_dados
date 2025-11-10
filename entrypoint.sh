@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # Este script garante que o ETL seja executado antes do Streamlit iniciar
 
 # 1. Executa o pré-processamento dos dados

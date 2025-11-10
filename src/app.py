@@ -103,7 +103,17 @@ if conn:
         st.markdown(f"```sql\n{query}\n```")
         
         if not df_status.empty:
-            st.bar_chart(df_status.set_index('game_status'))
+            traducoes_status = {
+                'mate': 'Xeque-mate',
+                'resign': 'Abandono',
+                'outoftime': 'Tempo Esgotado',
+                'draw': 'Empate (Acordo)',
+                'stalemate': 'Rei Afogado (Empate)',
+                'cheat': 'Trapaça'
+            }
+            df_status['status_traduzido'] = df_status['game_status'].map(traducoes_status).fillna(df_status['game_status'])
+            
+            st.bar_chart(df_status, x='status_traduzido', y='total')
         else:
             st.warning("Não há dados na tabela 'matches' para exibir.")
 
@@ -114,6 +124,14 @@ if conn:
         st.markdown(f"```sql\n{query}\n```")
         
         if not df_winner.empty:
+            traducoes_cores = {
+                'white': 'Vitórias das Brancas',
+                'black': 'Vitórias das Pretas',
+                'draw': 'Empates'
+            }
+
+            df_winner['winner_traduzido'] = df_winner['winner'].map(traducoes_cores).fillna(df_winner['winner'])
+
             # Define um tamanho de figura razoável
             fig, ax = plt.subplots(figsize=(7, 5))
             
@@ -122,7 +140,7 @@ if conn:
             
             ax.pie(
                 df_winner['total'],
-                labels=df_winner['winner'].astype(str).tolist(),
+                labels=df_winner['winner_traduzido'].astype(str).tolist(),
                 autopct='%1.1f%%',
                 startangle=90,
                 colors=colors,
