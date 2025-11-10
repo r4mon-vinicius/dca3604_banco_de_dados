@@ -33,9 +33,14 @@ O dashboard interativo é dividido em várias seções, cada uma extraindo dados
 
 1.  **Clone o repositório:**
 
+    HTTPS:
     ```bash
-    git clone https://url-do-seu-repositorio.git
-    cd nome-do-projeto
+    git clone https://github.com/r4mon-vinicius/dca3604_banco_de_dados
+    ```
+
+    SSH:
+    ```bash
+    git clone git@github.com:r4mon-vinicius/dca3604_banco_de_dados.git
     ```
 
 2.  **Adicione os dados:**
