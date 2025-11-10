@@ -1,0 +1,32 @@
+# Definição dos serviços (contêineres)
+services:
+
+  # --- Serviço do Banco de Dados MySQL ---
+  # (Esta é a tradução do seu comando 'docker run')
+  db:
+    image: mysql:8.0
+    container_name: champsched-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: cs123
+      MYSQL_DATABASE: champsched
+      MYSQL_USER: cs
+      MYSQL_PASSWORD: cs123
+    ports:
+      # Expõe a porta 3307 NA SUA MÁQUINA, mapeando para 3306 DENTRO do contêiner
+      - "3307:3306"
+    volumes:
+      # Mapeia a pasta ./data/mysql do seu projeto para a pasta de dados do MySQL
+      # Isso garante que seus dados não sejam perdidos ao parar o contêiner
+      - ./data/mysql:/var/lib/mysql
+
+  # --- Serviço do App Streamlit ---
+  app:
+    build: .  # Constrói a imagem a partir do Dockerfile no diretório atual
+    container_name: champsched-app
+    restart: unless-stopped
+    ports:
+      # Expõe a porta 8501 (padrão do Streamlit)
+      - "8501:8501"
+    depends_on:
+      - db  # Diz ao Docker para esperar o 'db' estar pronto antes de iniciar o 'app'
