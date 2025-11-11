@@ -113,7 +113,7 @@ if conn:
             }
             df_status['status_traduzido'] = df_status['game_status'].map(traducoes_status).fillna(df_status['game_status'])
             
-            st.bar_chart(df_status, x='status_traduzido', y='total')
+            st.bar_chart(df_status, x='status_traduzido', y='total', sort=False)
         else:
             st.warning("Não há dados na tabela 'matches' para exibir.")
 
@@ -152,7 +152,7 @@ if conn:
             
             # Coloca o gráfico na coluna central (col2)
             with col2:
-                st.pyplot(fig) # Não precisa de 'use_container_width'
+                st.pyplot(fig)
         else:
             st.warning("Não há dados na tabela 'matches' para exibir.")
 
@@ -183,7 +183,7 @@ if conn:
         st.markdown(f"```sql\n{query}\n```")
         
         if not df_players.empty:
-            st.bar_chart(df_players, x='player_id', y='wins')
+            st.bar_chart(df_players, x='player_id', y='wins', sort=False)
         else:
             st.warning("Não há dados na tabela 'players' para exibir.")
 
